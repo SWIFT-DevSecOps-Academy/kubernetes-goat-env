@@ -1,0 +1,15 @@
+---
+- name: Setup Helm2
+  hosts: 127.0.0.1
+  tasks:
+
+    - name: Download Helm2
+      command: wget https://get.helm.sh/helm-v2.16.11-linux-amd64.tar.gz
+
+    - name: Install Helm2
+      command: "{{ item }}"
+      loop:
+      - tar -zxvf helm-v2.16.11-linux-amd64.tar.gz
+      - mv linux-amd64/helm /usr/local/bin/helm2
+
+

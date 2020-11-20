@@ -25,12 +25,6 @@
         name: docker.io
         state: latest
 
-    - name: adding existing user "{{ ansible_user }}" to group sudo
-      user:
-        name: "{{ ansible_user }}"
-        groups: docker
-        append: yes
-     
     - name: Install kubectl
       apt:
         name: kubectl
@@ -42,7 +36,18 @@
           enabled: yes
           state: started        
 
+    - name: Capture current user ID
+      shell: whoami
+      register: current_id
+
+    - name: adding existing user {{ current_id.stdout }} to group docker
+      user:
+        name: "{{ current_id.stdout }}"
+        groups: docker
+        append: yes
+
     - name: Install Minikube package
       apt:
         deb: https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+
 

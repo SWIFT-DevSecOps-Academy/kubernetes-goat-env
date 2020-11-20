@@ -17,4 +17,5 @@
         name: minikube
         state: absent
 
-
+    - name: Remove Helm2
+      command: rm -f /usr/local/bin/helm
