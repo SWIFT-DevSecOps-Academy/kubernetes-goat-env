@@ -10,6 +10,7 @@
       - docker
       - docker-engine
       - docker.io
+      - kubectl
 
     - name: Remove Minikube package
       apt:

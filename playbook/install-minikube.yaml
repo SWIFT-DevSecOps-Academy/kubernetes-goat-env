@@ -9,21 +9,38 @@
       loop:
       - docker
       - docker-engine
-      - docker.io
 
+    - name: Add Kubernetes GPG key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Add Kubernetes Repository
+      apt_repository:
+        repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        
     - name: Install Docker.io 
       apt:
-          name: docker.io
-          state: latest
+        name: docker.io
+        state: latest
+
+    - name: adding existing user "{{ ansible_user }}" to group sudo
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+     
+    - name: Install kubectl
+      apt:
+        name: kubectl
+        state: latest
 
     - name: Start Docker Service
       service:
           name: docker
           enabled: yes
           state: started        
-
-#    - name: Download Minikube package
-#      command: curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
 
     - name: Install Minikube package
       apt:
