@@ -1,6 +1,31 @@
 ---
-- name: Run Local command
+- name: Setup Minikube
   hosts: 127.0.0.1
   tasks:
-    - name: disable swap
-      command: ls -l /home
+    - name: Remove old docker packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      loop:
+      - docker
+      - docker-engine
+      - docker.io
+
+    - name: Install Docker.io 
+      apt:
+          name: docker.io
+          state: latest
+
+    - name: Start Docker Service
+      service:
+          name: docker
+          enabled: yes
+          state: started        
+
+#    - name: Download Minikube package
+#      command: curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+
+    - name: Install Minikube package
+      apt:
+        deb: https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+

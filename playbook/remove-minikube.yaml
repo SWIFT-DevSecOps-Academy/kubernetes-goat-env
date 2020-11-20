@@ -1,0 +1,19 @@
+---
+- name: Uninstall Minikube
+  hosts: 127.0.0.1
+  tasks:
+    - name: Remove old docker packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      loop:
+      - docker
+      - docker-engine
+      - docker.io
+
+    - name: Remove Minikube package
+      apt:
+        name: minikube
+        state: absent
+
+
