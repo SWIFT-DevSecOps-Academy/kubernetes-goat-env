@@ -8,5 +8,3 @@ Kubernetes Goat Environment Setup
    # sudo usermod -aG docker $USER 
 
 3. Reboot VM
-
-4. 
