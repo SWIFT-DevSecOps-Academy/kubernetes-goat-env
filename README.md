@@ -7,4 +7,4 @@ Kubernetes Goat Environment Setup
 2. Add your user ID to the docker group
    # sudo usermod -aG docker $USER 
 
-3. Reboot VM
+3. Relogin to allow the new group to take effect
